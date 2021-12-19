@@ -4,6 +4,8 @@ import "./Button.css";
 
 export default class Button extends React.Component {
   static propTypes = {
+    dark: PropTypes.bool,
+    faction: PropTypes.bool,
     name: PropTypes.string,
     orange: PropTypes.bool,
     wide: PropTypes.bool,
@@ -18,6 +20,7 @@ export default class Button extends React.Component {
     const className = [
       "component-button",
       this.props.dark ? "dark" : "",
+      this.props.faction ? "faction" : "",
       this.props.orange ? "orange" : "",
       this.props.quart ? "quart" : "",
       this.props.wide ? "wide" : ""

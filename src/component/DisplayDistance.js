@@ -11,8 +11,8 @@ export default class DisplayDistance extends React.Component {
   render() {
     return (
       <div className="component-display-distance">
-        <div className="label">Distance</div>
         <div className="value">{this.props.value}</div>
+        <div className="label">Distance</div>
       </div>
     );
   }

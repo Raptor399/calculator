@@ -38,8 +38,8 @@ export default class DisplayElevation extends React.Component {
     
     return (
       <div className="component-display-elevation">
-        <div className="label">Elevation</div>
         <div className="value">{elevation}</div>
+        <div className="label">Elevation</div>
       </div>
     );
   }

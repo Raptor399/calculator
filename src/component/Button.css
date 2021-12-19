@@ -41,3 +41,15 @@
   background-color: #333;
   color: white;
 }
+
+@media (max-width: 400px) {
+  .component-button button {
+    font-size: 5.0rem;
+    font-weight: 900;
+  }
+
+  .component-button.faction button {
+    font-size: 2.5rem;
+    font-weight: 900;
+  }
+}

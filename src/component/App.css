@@ -6,4 +6,5 @@
 }
 .component-app > div {
   display: flex;
+  height: 16.6%;
 }

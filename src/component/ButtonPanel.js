@@ -22,7 +22,7 @@ export default class ButtonPanel extends React.Component {
           <Button name="C" clickHandler={this.handleClick} quart orange />
           <Button name="+" clickHandler={this.handleClick} quart dark />
           <Button name="-" clickHandler={this.handleClick} quart dark />
-          <Button name={this.props.faction} clickHandler={this.handleClick} quart dark />
+          <Button name={this.props.faction} clickHandler={this.handleClick} quart dark faction />
         </div>
         <div>
           <Button name="7" clickHandler={this.handleClick} />
