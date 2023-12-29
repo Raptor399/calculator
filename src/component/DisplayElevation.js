@@ -2,38 +2,58 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./DisplayElevation.css";
-
-function elevationFromDistance(distance, faction) {
-  if (distance === null) {
-    return 0;
-  }
-
-  const dist = parseFloat(distance);
-
-  if (dist >= 100 && dist <= 1600) {
-      if (faction === null || faction === "USA" || faction === "GER") {
-        const m = -0.23703;
-        const b = 1001.46;
-        return Math.round( m * dist + b );
-      } else {
-        const m = 21.33;
-        const b = 100;
-        //Formula by sleepybjr
-        return Math.round( 1120 - (((dist / b) - 1) * m)) ;
-      }
-  }
-
-  return 0;
-}
+import "../logic/calculate";
 
 export default class DisplayElevation extends React.Component {
   static propTypes = {
-    faction: PropTypes.string,
+    faction: PropTypes.oneOf(['USA', 'GBR', 'GER', 'RUS']).isRequired,
     value: PropTypes.string
   };
 
+  elevationFromDistance(distance, faction) {
+    if (distance === null) {
+      return null;
+    }
+  
+    const dist = parseFloat(distance);
+  
+    if (dist >= 100 && dist <= 1600) {
+      let shortest_dist = 100;
+      let shortest_elev = 533;
+      let longest_dist = 1600;
+      let longest_elev = 267;
+  
+      // Gun elevations from the game
+      if (faction === "GBR") {
+        shortest_dist = 100;
+        shortest_elev = 533;
+        longest_dist = 1600;
+        longest_elev = 267;
+      } else if (faction === "RUS") {
+        shortest_dist = 100;
+        shortest_elev = 1120;
+        longest_dist = 1600;
+        longest_elev = 800;
+      } else {
+        // Default to USA or GER
+        shortest_dist = 100;
+        shortest_elev = 978;
+        longest_dist = 1600;
+        longest_elev = 622;
+      }
+  
+      // Solve linear equation
+      const m = (longest_elev - shortest_elev) / (longest_dist - shortest_dist);
+      const c = shortest_elev - (m * shortest_dist);
+  
+      return Math.round(m * dist + c);
+    }
+  
+    return null;
+  };
+
   render() {
-    const elevation = elevationFromDistance(this.props.value, this.props.faction);
+    const elevation = this.elevationFromDistance(this.props.value, this.props.faction);
 
     
     return (
